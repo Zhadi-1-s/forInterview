@@ -1,0 +1,17 @@
+[
+  { "id": "1", "title": "Clean Code", "author": "Robert C. Martin" },
+  { "id": "2", "title": "The Pragmatic Programmer", "author": "Andrew Hunt" },
+  { "id": "3", "title": "Design Patterns", "author": "Erich Gamma" },
+  { "id": "4", "title": "Refactoring", "author": "Martin Fowler" },
+  { "id": "5", "title": "You Don't Know JS", "author": "Kyle Simpson" },
+  { "id": "6", "title": "JavaScript: The Good Parts", "author": "Douglas Crockford" },
+  { "id": "7", "title": "Domain-Driven Design", "author": "Eric Evans" },
+  { "id": "8", "title": "Introduction to Algorithms", "author": "Thomas H. Cormen" },
+  { "id": "9", "title": "Effective Java", "author": "Joshua Bloch" },
+  { "id": "10", "title": "Head First Design Patterns", "author": "Eric Freeman" },
+  { "id": "11", "title": "Code Complete", "author": "Steve McConnell" },
+  { "id": "12", "title": "Patterns of Enterprise Application Architecture", "author": "Martin Fowler" },
+  { "id": "13", "title": "The Mythical Man-Month", "author": "Frederick P. Brooks Jr." },
+  { "id": "14", "title": "Working Effectively with Legacy Code", "author": "Michael Feathers" },
+  { "id": "15", "title": "Cracking the Coding Interview", "author": "Gayle Laakmann McDowell" }
+]
