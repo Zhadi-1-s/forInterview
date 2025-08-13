@@ -1,16 +1,58 @@
-<div class="main-container">
-  <mat-grid-list cols="3" rowHeight="fit" gutterSize="16">
-    <mat-grid-tile *ngFor="let book of books$ | async">
-      <mat-card class="book-card">
-        <mat-card-header>
-          <mat-card-title>{{ book.title }}</mat-card-title>
-          <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-    </mat-grid-tile>
+<mat-sidenav-container class="layout-container">
+  <!-- Основной контент -->
+  <mat-sidenav-content class="content-area">
 
-    <mat-grid-tile *ngIf="(books$ | async)?.length === 0">
-      <p>Нет доступных книг</p>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
+    <!-- Кнопка открытия формы -->
+    <div style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
+      <button mat-raised-button color="primary" (click)="showForm = !showForm">
+        {{ showForm ? 'Скрыть форму' : 'Добавить книгу' }}
+      </button>
+    </div>
+
+    <!-- Форма добавления книги -->
+    <div *ngIf="showForm" class="form-container">
+      <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Название книги</mat-label>
+          <input matInput placeholder="Введите название" formControlName="title">
+          <mat-error *ngIf="bookForm.get('title')?.invalid && bookForm.get('title')?.touched">
+            Поле обязательно
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Автор</mat-label>
+          <input matInput placeholder="Введите автора" formControlName="author">
+          <mat-error *ngIf="bookForm.get('author')?.invalid && bookForm.get('author')?.touched">
+            Поле обязательно
+          </mat-error>
+        </mat-form-field>
+
+        <div style="text-align: right; margin-top: 12px;">
+          <button mat-raised-button color="accent" type="submit" [disabled]="bookForm.invalid">
+            Сохранить книгу
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Список книг -->
+    <mat-grid-list [cols]="5" rowHeight="350px" gutterSize="16">
+      <mat-grid-tile *ngFor="let book of books$ | async  trackBy: trackById">
+        <mat-card class="book-card" [routerLink]="['/book-page', book.id]">
+          <mat-card-header>
+            <mat-card-title>{{ book.title }}</mat-card-title>
+            <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="(books$ | async)?.length === 0">
+        <p>Нет доступных книг</p>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

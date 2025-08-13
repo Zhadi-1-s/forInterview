@@ -1,1 +1,16 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container class="main-container">
+  <!-- Левое меню -->
+  <mat-sidenav mode="side" opened class="side-nav">
+    <h3 class="menu-title">Меню</h3>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/books">📚 Все книги</a>
+      <a mat-list-item routerLink="/favorites">⭐ Избранное</a>
+      <a mat-list-item routerLink="/profile">👤 Профиль</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Основной контент -->
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

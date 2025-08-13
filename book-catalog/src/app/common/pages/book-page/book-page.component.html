@@ -1,1 +1,19 @@
-<p>book-page works!</p>
+<div class="book-page-container">
+
+  <!-- Основная часть -->
+  <main class="book-details" *ngIf="book; else loading">
+    <div class="book-image">
+      <img src="assets/images/book-placeholder.png" alt="Обложка книги" />
+    </div>
+    <div class="book-info">
+      <h2>{{ book.title }}</h2>
+      <p><strong>Автор:</strong> {{ book.author }}</p>
+      <p><strong>ID:</strong> {{ book.id }}</p>
+    </div>
+  </main>
+
+  <!-- Заглушка при загрузке -->
+  <ng-template #loading>
+    <p>Загрузка информации о книге...</p>
+  </ng-template>
+</div>
