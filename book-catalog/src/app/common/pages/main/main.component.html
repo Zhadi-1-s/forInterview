@@ -1,12 +1,20 @@
 <mat-sidenav-container class="layout-container">
-  <!-- Основной контент -->
   <mat-sidenav-content class="content-area">
 
-    <!-- Кнопка открытия формы -->
-    <div style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
+    <!-- Верхняя панель с кнопкой и поиском -->
+    <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
       <button mat-raised-button color="primary" (click)="showForm = !showForm">
         {{ showForm ? 'Скрыть форму' : 'Добавить книгу' }}
       </button>
+
+      <!-- Поле поиска -->
+      <mat-form-field appearance="outline" style="width: 300px;">
+        <mat-label>Поиск книги</mat-label>
+        <input matInput placeholder="Введите название или автора" [formControl]="searchControl">
+        <button *ngIf="searchControl.value" matSuffix mat-icon-button aria-label="Очистить" (click)="searchControl.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
     </div>
 
     <!-- Форма добавления книги -->
@@ -40,7 +48,7 @@
 
     <!-- Список книг -->
     <mat-grid-list [cols]="5" rowHeight="350px" gutterSize="16">
-      <mat-grid-tile *ngFor="let book of books$ | async  trackBy: trackById">
+      <mat-grid-tile *ngFor="let book of filteredBooks$ | async; trackBy: trackById">
         <mat-card class="book-card" [routerLink]="['/book-page', book.id]">
           <mat-card-header>
             <mat-card-title>{{ book.title }}</mat-card-title>
@@ -49,7 +57,7 @@
         </mat-card>
       </mat-grid-tile>
 
-      <mat-grid-tile *ngIf="(books$ | async)?.length === 0">
+      <mat-grid-tile *ngIf="(filteredBooks$ | async)?.length === 0">
         <p>Нет доступных книг</p>
       </mat-grid-tile>
     </mat-grid-list>

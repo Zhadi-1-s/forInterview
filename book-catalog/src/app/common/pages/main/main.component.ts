@@ -12,7 +12,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import { startWith,debounceTime, distinctUntilChanged } from 'rxjs';
+import { startWith,debounceTime, distinctUntilChanged,switchMap } from 'rxjs';
+import {MatIconModule} from '@angular/material/icon'
+import {MatInputModule} from '@angular/material/input';
 @Component({
   selector: 'app-main',
   standalone: true,
@@ -23,7 +25,9 @@ import { startWith,debounceTime, distinctUntilChanged } from 'rxjs';
             MatListModule,
             RouterModule,
             MatFormFieldModule,
-            ReactiveFormsModule
+            ReactiveFormsModule,
+            MatIconModule,
+            MatInputModule
           ],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
@@ -48,14 +52,12 @@ export class MainComponent implements OnInit {
 
     this.books$ = this.bookService.getBooks();
 
-    // this.searchControl.valueChanges
-    // .pipe(
-    //   startWith(''),
-    //   debounceTime(300),
-    //   distinctUntilChanged(),
-    //   switchMap(query => this.bookService.filterBooks(query))
-    // )
-    // .subscribe(books => this.filteredBooks$ = of(books));
+    this.filteredBooks$ = this.searchControl.valueChanges.pipe(
+    startWith(''), // сразу показать все книги
+    debounceTime(300),
+    distinctUntilChanged(),
+    switchMap(query => this.bookService.filterBooks(query || ''))
+  );
 
   }
 
